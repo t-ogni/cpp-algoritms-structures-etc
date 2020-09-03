@@ -1,5 +1,5 @@
 #include <iostream>
-#include "insertionSort.h"
+#include "sort-algoritms/algoritms.h"
 
 int main(){
     int mas[] = {3, 45, -4, 6, 0, -3, 2};
