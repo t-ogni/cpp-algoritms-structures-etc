@@ -3,23 +3,13 @@
 // templates need to be instantiated with initialization
 
 /* to use example:
-#include <iostream>
-#include <string>
+    hashTable<int> tabled(300); // save type and size
+    tabled.push("get", 2139123); // key and data
 
-#include "hashTable.h"
-
-int main(){
-    hashTable<int> tabled(300);
-
-    for (int j = 0; j < 300; ++j)
-            tabled.push("get" + std::to_string(j), j);
-
-    for (int i : tabled.GetAllBlocks())
+    for (int i : tabled.GetAllBlocks())  // vector
         std::cout << i << std::endl;
 
-    std::cout << tabled.get("get300") << std::endl;
-    return 0;
-}
+    std::cout << tabled.get("get") << std::endl;
  */
 
 #ifndef CPP_FILES_HASHTABLE_H
