@@ -1,11 +1,8 @@
 #include <iostream>
-#include "sort-algoritms/algoritms.h"
+#include "sequrity/base64.h"
+#include <string>
 
 int main(){
-    int mas[] = {3, 45, -4, 6, 0, -3, 2};
-    insertionSort(mas, sizeof(mas) / sizeof(mas[0]));
-    for (auto i : mas){
-        std::cout << i << std::endl;
-    }
+    std::cout << base64().encode("lolKJjEL;KkFJSk");
     return 0;
 }

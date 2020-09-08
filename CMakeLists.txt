@@ -2,12 +2,15 @@ cmake_minimum_required(VERSION 3.0)
 
 set (CMAKE_CXX_STANDARD 17)
 
-project(test)
-include_directories(sort-algoritms)
+project(main)
 
-file(GLOB helloworld_SRC
-        "sort-algoritms/*.h"
-        "sort-algoritms/*.cpp"
+set(dir sequrity)
+
+include_directories(${dir})
+
+file(GLOB dir_SRC
+        "${dir}/*.h"
+        "${dir}/*.cpp"
         )
 
-add_executable(main main.cpp ${helloworld_SRC})
+add_executable(main main.cpp ${dir_SRC})
