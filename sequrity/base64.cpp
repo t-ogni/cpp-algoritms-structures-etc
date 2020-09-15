@@ -6,20 +6,19 @@
 
 #include "base64.h"
 #include <string>
-#include <iostream>
 
 base64::base64() = default;
 
 std::string base64::encode(std::string const &in){
     int appendSize = in.length() % 3 == 1 ? 2 :
                         in.length() % 3 == 2 ? 1 : 0;
-    int clearSize = in.length() - in.length() % 3;
+    unsigned int clearSize = (unsigned int) in.length() - in.length() % 3;
     int length = (int)((in.length() * 8) / 6 + appendSize*4);   // 8 and 6 are bits in output
 
     std::string result;
     result.reserve(length);
 
-    for (int i = 0; i < clearSize; i+=3) {
+    for (int i = 0; i < (int)clearSize; i+=3) {
         result.push_back(this-> table[(in[i] >> 2)]);
         result.push_back(this-> table[((in[i] & 0b00000011) << 4 | in[i+1] >> 4)]);
         result.push_back(this-> table[((in[i+1] & 0b00001111) << 2 | in[i+2] >> 6)]);
@@ -45,9 +44,56 @@ std::string base64::encode(std::string const &in){
     return result;
 }
 
-std::string base64::decode(std::string const &in){
+inline bool is_b64(unsigned char c)
+{
+    return (isalnum(c) || (c == '+') || (c == '/'));
+}
 
-    return in;
+std::string base64::decode(std::string const &in){
+    unsigned int in_len = in.size();
+    int i = 0;
+    int j = 0;
+    int in_ = 0;
+    unsigned char char_array_4[4];
+    unsigned char char_array_3[3];
+    std::string ret;
+
+    while (in_len-- && ( in[in_] != '=') && is_b64(in[in_]))
+    {
+        char_array_4[i++] = in[in_];
+        in_++;
+        if (i ==4)
+        {
+            for (i = 0; i <4; i++)
+                char_array_4[i] = table.find(char_array_4[i]);
+
+            char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
+            char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
+            char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
+
+            for (i = 0; (i < 3); i++)
+                ret += char_array_3[i];
+            i = 0;
+        }
+    }
+
+    if (i)
+    {
+        for (j = i; j <4; j++)
+            char_array_4[j] = 0;
+
+        for (j = 0; j <4; j++)
+            char_array_4[j] = table.find(char_array_4[j]);
+
+        char_array_3[0] = ( char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
+        char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
+        char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
+
+        for (j = 0; (j < i - 1); j++)
+            ret += char_array_3[j];
+    }
+
+    return ret;
 }
 
 base64::~base64() = default;

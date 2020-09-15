@@ -5,8 +5,11 @@
 int main(){
     std::string k = "ok";
     while(k.size() > 0) {
-        std::cin >> k;
-        std::cout << base64().encode(k) << '\n'; //
+        char kk[99];
+        std::cin.getline(kk, 99);
+        k = kk;
+        k = base64().encode(k);
+        std::cout << k << '\n' << base64().decode(k) << '\n'; //
     }
     return 0;
 }
