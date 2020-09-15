@@ -3,6 +3,10 @@
 #include <string>
 
 int main(){
-    std::cout << base64().encode("lolKJjEL;KkFJSk");
+    std::string k = "ok";
+    while(k.size() > 0) {
+        std::cin >> k;
+        std::cout << base64().encode(k) << '\n'; //
+    }
     return 0;
 }

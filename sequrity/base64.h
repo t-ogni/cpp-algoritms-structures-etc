@@ -34,8 +34,8 @@ protected:
                         "0123456789+/"; //64
 public:
     base64();
-    static std::string encode(std::string const &in);
-    static std::string decode(std::string const &in);
+    std::string encode(std::string const &in);
+    std::string decode(std::string const &in);
     ~base64();
 };
 
