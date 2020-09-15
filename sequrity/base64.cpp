@@ -54,25 +54,25 @@ std::string base64::decode(std::string const &in){
     int i = 0;
     int j = 0;
     int in_ = 0;
-    unsigned char char_array_4[4];
-    unsigned char char_array_3[3];
+    unsigned char inputArray[4];
+    unsigned char outputArray[3];
     std::string ret;
 
     while (in_len-- && ( in[in_] != '=') && is_b64(in[in_]))
     {
-        char_array_4[i++] = in[in_];
+        inputArray[i++] = in[in_];
         in_++;
-        if (i ==4)
+        if (i == 4)
         {
-            for (i = 0; i <4; i++)
-                char_array_4[i] = table.find(char_array_4[i]);
+            for (i = 0; i < 4; i++)
+                inputArray[i] = table.find(inputArray[i]);
 
-            char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
-            char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
-            char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
+            outputArray[0] = (inputArray[0] << 2) + ((inputArray[1] & 0b00110000) >> 4);
+            outputArray[1] = ((inputArray[1] & 0b00001111) << 4) + ((inputArray[2] & 0b00111100) >> 2);
+            outputArray[2] = ((inputArray[2] & 0b00000011) << 6) + inputArray[3];
 
             for (i = 0; (i < 3); i++)
-                ret += char_array_3[i];
+                ret += outputArray[i];
             i = 0;
         }
     }
@@ -80,17 +80,17 @@ std::string base64::decode(std::string const &in){
     if (i)
     {
         for (j = i; j <4; j++)
-            char_array_4[j] = 0;
+            inputArray[j] = 0;
 
         for (j = 0; j <4; j++)
-            char_array_4[j] = table.find(char_array_4[j]);
+            inputArray[j] = table.find(inputArray[j]);
 
-        char_array_3[0] = ( char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
-        char_array_3[1] = ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
-        char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
+        outputArray[0] = ( inputArray[0] << 2) + ((inputArray[1] & 0b00110000) >> 4);
+        outputArray[1] = ((inputArray[1] & 0b00001111) << 4) + ((inputArray[2] & 0b00111100) >> 2);
+        outputArray[2] = ((inputArray[2] & 0b00000011) << 6) + inputArray[3];
 
         for (j = 0; (j < i - 1); j++)
-            ret += char_array_3[j];
+            ret += outputArray[j];
     }
 
     return ret;
