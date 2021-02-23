@@ -37,6 +37,7 @@ protected:
         T data = T();
         datablock *pointer = nullptr;
     };
+
 public:
     int tableSize;
     std::vector<datablock*> table;

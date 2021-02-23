@@ -4,7 +4,7 @@ set (CMAKE_CXX_STANDARD 17)
 
 project(main)
 
-set(dir sequrity)
+set(dir "5. Cryptographic Functions")
 
 include_directories(${dir})
 
