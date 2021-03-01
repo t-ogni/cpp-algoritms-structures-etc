@@ -1,15 +1,45 @@
 #include <iostream>
-#include "sequrity/base64.h"
-#include <string>
+#include "1. Combinatoric Algorithms/Sort Algorithms/InsertionSort.h"
+#include <chrono>
+#include <random>
+#include <ctime>
+ #define TEST
 
-int main(){
-    std::string k = "ok";
-    while(k.size() > 0) {
-        char kk[99];
-        std::cin.getline(kk, 99);
-        k = kk;
-        k = base64().encode(k);
-        std::cout << k << '\n' << base64().decode(k) << '\n'; //
-    }
-    return 0;
+using namespace std::chrono;
+
+template <class T>
+void sort(T *start, T *end, bool minToMax){
+    insetrionSort(start, end, minToMax);
 }
+
+int main() {
+    int mas[] = {55, 10, 5, -23, 11, 0, 30, 12, 14, 563, 5467, 234, 12, 654};
+    sort(&mas[0], &mas[sizeof(mas) / sizeof(int)], true);
+    for (auto a : mas) {
+        std::cout << a << " ";
+    }
+
+#ifdef TEST
+    // random generator
+    std::mt19937 gen(time(nullptr));
+    std::uniform_int_distribution<int> uid(INT32_MIN, INT32_MAX);
+
+    // mas with random keys generator
+    int unsorted_mas[100000];
+    for(auto &item : unsorted_mas)
+        item = gen();
+
+    // test with time counter
+    auto start = steady_clock::now();
+
+    sort(&unsorted_mas[0], &unsorted_mas[99999], true);
+
+    auto end = steady_clock::now();
+    auto elapsed = duration_cast<milliseconds>(end - start);
+
+    std::cout << "\n\n Sort ended - 10k keys: \n"
+             << "  Elapsed time: " << elapsed.count() << " ms\n";
+#endif
+
+    return 0;
+} /* */
