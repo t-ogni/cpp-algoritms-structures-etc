@@ -6,10 +6,10 @@
 #define MAIN_INSERTIONSORT_H
 
 template <class T>
-void insetrionSort(T *dataStart, T *dataEnd, bool minToMax = true){
+void insertionSort(T *dataStart, T *dataEnd){
     for (T *data = dataStart+1; data <= dataEnd; ++data) {
         T *curr = data;
-        while (*(curr-1) > *curr && curr != dataStart){
+        while (*(curr-1) > *curr && curr != dataEnd){
             T temp = *curr;
             *curr = *(curr-1);
             *(curr-1) = temp;

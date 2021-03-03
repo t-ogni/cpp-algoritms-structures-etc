@@ -17,10 +17,3 @@ string prettify(string old){
 	
 	return phone;
 }
-
-int main(){
-	string phone = "79113546682";
-	phone = prettify(phone);
-	std::cout << phone << "\n";
-	return 0;
-}

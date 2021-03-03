@@ -1,25 +1,28 @@
 #include <iostream>
-#include "1. Combinatoric Algorithms/Sort Algorithms/InsertionSort.h"
 #include <chrono>
 #include <random>
 #include <ctime>
- #define TEST
+#include <1. Combinatoric Algorithms/Sort Algorithms/MergeSort.h>
+// #define TEST
 
 using namespace std::chrono;
 
 template <class T>
-void sort(T *start, T *end, bool minToMax){
-    insetrionSort(start, end, minToMax);
+void sort(T *start, T *end){
+    mergeSort(start, end);
 }
 
 int main() {
-    int mas[] = {55, 10, 5, -23, 11, 0, 30, 12, 14, 563, 5467, 234, 12, 654};
-    sort(&mas[0], &mas[sizeof(mas) / sizeof(int)], true);
+#ifndef TEST
+
+    int mas[] = {55, 10, 5, -23, 11, 0, 30, 12, 14, 0, 0, 563, 5467, 234, 12, 654};
+    sort(&mas[0], &mas[( sizeof(mas) / sizeof(mas[1]) ) - 1]);
     for (auto a : mas) {
         std::cout << a << " ";
     }
+    std::cout << "\n end \n ";
 
-#ifdef TEST
+#else
     // random generator
     std::mt19937 gen(time(nullptr));
     std::uniform_int_distribution<int> uid(INT32_MIN, INT32_MAX);
