@@ -3,7 +3,7 @@
 #include <random>
 #include <ctime>
 #include <1. Combinatoric Algorithms/Sort Algorithms/MergeSort.h>
-#include "2. Data Compression Algorithms/Without Data Loss/RunLengthEncoding.h"
+#include "2. Data Compression Algorithms/Without Data Loss/BurrowsWheelerTransform.h"
 #define compress
 //#define TEST
 
@@ -16,7 +16,9 @@ void sort(T *start, T *end){
 }
 
 int main() {
-    std::cout << RLEcompress("AAAAAbbbCDD");
+    std::string c = "ABACABA";
+    std::cout << BWT(c) << '\n';
+    std::cout << c;
 #ifdef SORT
 #ifndef TEST
 
@@ -53,4 +55,4 @@ int main() {
 #endif
 
     return 0;
-} /* */
+}

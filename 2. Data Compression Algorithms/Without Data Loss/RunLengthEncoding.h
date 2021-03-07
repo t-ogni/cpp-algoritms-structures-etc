@@ -21,4 +21,18 @@ std::string RLEcompress(const std::string& data) {
     return out;
 }
 
+std::string RLEdecompress(const std::string& data) {
+    std::string out;
+    for(auto c = data.begin(); c < data.end(); c++){
+        size_t total = 1;
+        while (*c == *(c + 1)){
+            total++;
+            c++;
+        }
+        out.append(std::to_string(total));
+        out.push_back(*c);
+    }
+    return out;
+}
+
 #endif //CPP_FILES_RUNLENGTHENCODING_H
