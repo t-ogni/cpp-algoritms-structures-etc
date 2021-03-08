@@ -5,7 +5,7 @@
 #include <1. Combinatoric Algorithms/Sort Algorithms/MergeSort.h>
 #include "2. Data Compression Algorithms/Without Data Loss/BurrowsWheelerTransform.h"
 #define compress
-//#define TEST
+#define DATACOMP
 
 
 using namespace std::chrono;
@@ -16,10 +16,16 @@ void sort(T *start, T *end){
 }
 
 int main() {
+#ifdef DATACOMP
     std::string c = "ABACABA";
-    std::cout << BWT(c) << '\n';
-    std::cout << c;
-#ifdef SORT
+    std::cout << "str: " << c << '\n';
+
+    std::string coded = BWT(c);
+    std::cout << "compressed: " << coded << '\n';
+
+    std::string decoded = BWTdecode(coded);
+    std::cout << "decompressed: " << decoded << '\n';
+#elif SORT
 #ifndef TEST
 
     int mas[] = {55, 10, 5, -23, 11, 0, 30, 12, 14, 0, 0, 563, 5467, 234, 12, 654};
